@@ -216,7 +216,6 @@ function getRectangleString(width, height) {
   return result;
 }
 
-
 /**
  * Encode specified string with ROT13 cipher
  * See details:  https://en.wikipedia.org/wiki/ROT13
