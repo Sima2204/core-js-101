@@ -35,14 +35,15 @@ function findElement(arr, value) {
  *    2 => [ 1, 3 ]
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
-function generateOdds(len) {
-  const arr = new Array(len);
-  for (let i = 0; i < arr.length; i += 1) {
-    if (i % 2 !== 0 && i !== 0) {
-      arr.push(i);
-    }
-  }
-  return arr.slice(-(len - 1));
+function generateOdds(/* len */) {
+  // const arr = new Array(len);
+  // for (let i = 0; i < arr.length; i += 1) {
+  //   if (i % 2 !== 0 && i !== 0) {
+  //     arr.push(i);
+  //   }
+  // }
+  // return arr.slice(-(len - 1));
+  throw new Error('Not implemented');
 }
 
 
