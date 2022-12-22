@@ -75,8 +75,17 @@ function isLeapYear(date) {
  */
 function timeSpanToString(/* startDate, endDate */) {
   throw new Error('Not implemented');
-}
+  // made with methods, but not working normal (return not correct hours, all another OK)
+  // const diff = endDate - startDate;
+  // const res = new Date(diff);
+  // console.log( `${res.getHours()}:${res.getMinutes()}:
+  // ${res.getSeconds()}.${res.getMilliseconds()})`);
 
+  // const sss = endDate.getTime() - startDate.getTime();
+  // const ss = sss / 1000;
+  // const mm = ss / 60;
+  // const hh = mm / 60;
+}
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock
