@@ -73,18 +73,16 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
-  // made with methods, but not working normal (return not correct hours, all another OK)
-  // const diff = endDate - startDate;
-  // const res = new Date(diff);
-  // console.log( `${res.getHours()}:${res.getMinutes()}:
-  // ${res.getSeconds()}.${res.getMilliseconds()})`);
-
-  // const sss = endDate.getTime() - startDate.getTime();
-  // const ss = sss / 1000;
-  // const mm = ss / 60;
-  // const hh = mm / 60;
+function timeSpanToString(startDate, endDate) {
+  const diff = endDate - startDate;
+  const res = new Date(diff);
+  const hrs = res.getUTCHours();
+  const mins = res.getUTCMinutes();
+  const secs = res.getUTCSeconds();
+  const mills = res.getUTCMilliseconds();
+  return `${hrs.toString().padStart(2, '0')
+  }:${mins.toString().padStart(2, '0')
+  }:${secs.toString().padStart(2, '0')}.${mills.toString().padStart(3, '0')}`;
 }
 
 /**
@@ -103,10 +101,14 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const hour = date.getUTCHours() % 12;
+  const minutes = date.getUTCMinutes();
+  const minuteAngle = minutes * 6;
+  const hourAngle = (hour * 30) + (minutes * 0.5);
+  const angle = Math.abs(hourAngle - minuteAngle);
+  return Math.min(angle, 360 - angle) * (Math.PI / 180);
 }
-
 
 module.exports = {
   parseDataFromRfc2822,
