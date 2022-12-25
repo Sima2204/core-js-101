@@ -220,10 +220,9 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
-
 
 /**
  * Reverse the specified integer number (put all digits in reverse order)
@@ -237,10 +236,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return +num.toString().split('').reverse().join('');
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
@@ -262,8 +260,29 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const checkDigit = +ccn.toString().slice(-1);
+  const payload = +ccn.toString().slice(0, (ccn.toString().length - 1));
+  const reversed = payload.toString().split('').reverse();
+  const doubled = reversed.reduce((accumulator, current, index) => {
+    if (index === 0 || index % 2 === 0) {
+      const doubledNum = current * 2;
+      if (doubledNum > 9) {
+        const subArr = doubledNum.toString().split('');
+        const sum = +subArr[0] + +subArr[1];
+        accumulator.push(sum);
+      } else {
+        accumulator.push(+current * 2);
+      }
+    } else {
+      accumulator.push(+current);
+    }
+    return accumulator;
+  }, []).reverse();
+  const sumDigits = doubled.reduce((accum, curr) => accum + curr, 0);
+  const checkDigitFromSum = Math.floor((10 - (sumDigits % 10)) % 10);
+  if (checkDigitFromSum === checkDigit) return true;
+  return false;
 }
 
 /**
@@ -280,10 +299,11 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const result = num.toString().split('').reduce((accum, curr) => (+accum + +curr), 0);
+  if (result < 9) return result;
+  return getDigitalRoot(result);
 }
-
 
 /**
  * Returns true if the specified string has the balanced brackets and false otherwise.
