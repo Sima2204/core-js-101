@@ -326,10 +326,26 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
-}
+function isBracketsBalanced(str) {
+  const opening = ['(', '[', '{', '<'];
+  const closing = [')', ']', '}', '>'];
+  const subArr = str.split('');
 
+  const res = subArr.reduce((stack, current) => {
+    if (opening.includes(current)) {
+      stack.push(current);
+    } else if (closing.includes(current)
+    && closing.indexOf(current) === opening.indexOf(stack[stack.length - 1])) {
+      stack.pop(current);
+    } else if (closing.includes(current)
+    && closing.indexOf(current) !== opening.indexOf(stack[stack.length - 1])) {
+      stack.push(current);
+    }
+    return stack;
+  }, []);
+
+  return !res.length;
+}
 
 /**
  * Returns the string with n-ary (binary, ternary, etc, where n <= 10)
