@@ -123,10 +123,18 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
-}
+function doRectanglesOverlap(rect1, rect2) {
+  const firstRightSide = rect1.left + rect1.width;
+  const firstBottomSide = rect1.top + rect1.height;
+  const secondRightSide = rect2.left + rect2.width;
+  const secondBottomSide = rect2.top + rect2.height;
 
+  if (
+    firstRightSide < rect2.left || firstBottomSide < rect2.top
+    || secondRightSide < rect1.left || secondBottomSide < rect1.top
+  ) return false;
+  return true;
+}
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
@@ -154,10 +162,12 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  if ((point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2) {
+    return true;
+  }
+  return false;
 }
-
 
 /**
  * Returns the first non repeated char in the specified strings otherwise returns null.
@@ -203,10 +213,12 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const subArr = [a, b].sort((first, second) => (first - second)).join(', ').split(',');
+  const startSym = isStartIncluded ? '[' : '(';
+  const endSym = isEndIncluded ? ']' : ')';
+  return `${startSym}${subArr}${endSym}`;
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -367,10 +379,9 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
-
 
 /**
  * Returns the common directory path for specified array of full filenames.
