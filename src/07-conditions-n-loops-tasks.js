@@ -418,10 +418,23 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rowsA = m1.length;
+  const colsA = m1[0].length;
+  const rowsB = m2.length;
+  const colsB = m2[0].length;
+  const m3 = [];
+  if (colsA !== rowsB) return false;
+  for (let i = 0; i < rowsA; i += 1) m3[i] = [];
+  for (let k = 0; k < colsB; k += 1) {
+    for (let i = 0; i < rowsA; i += 1) {
+      let t = 0;
+      for (let j = 0; j < rowsB; j += 1) t += m1[i][j] * m2[j][k];
+      m3[i][k] = t;
+    }
+  }
+  return m3;
 }
-
 
 /**
  * Returns the evaluation of the specified tic-tac-toe position.
@@ -453,10 +466,28 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
-}
+function evaluateTicTacToePosition(position) {
 
+  if (position[0][0] === position[0][1] === position[0][2] === 'X') return 'X';
+  if (position[0][3] === position[0][4] === position[0][5] === 'X') return 'X';
+  if (position[0][6] === position[0][7] === position[0][8] === 'X') return 'X';
+  if (position[0][0] === position[0][3] === position[0][6] === 'X') return 'X';
+  if (position[0][1] === position[0][4] === position[0][7] === 'X') return 'X';
+  if (position[0][2] === position[0][5] === position[0][8] === 'X') return 'X';
+  if (position[0][0] === position[0][4] === position[0][8] === 'X') return 'X';
+  if (position[0][2] === position[0][4] === position[0][6] === 'X') return 'X';
+
+  if (position[0][0] === position[0][1] === position[0][2] === '0') return '0';
+  if (position[0][3] === position[0][4] === position[0][5] === '0') return '0';
+  if (position[0][6] === position[0][7] === position[0][8] === '0') return '0';
+  if (position[0][0] === position[0][3] === position[0][6] === '0') return '0';
+  if (position[0][1] === position[0][4] === position[0][7] === '0') return '0';
+  if (position[0][2] === position[0][5] === position[0][8] === '0') return '0';
+  if (position[0][0] === position[0][4] === position[0][8] === '0') return '0';
+  if (position[0][2] === position[0][4] === position[0][6] === '0') return '0';
+
+  return undefined;
+}
 
 module.exports = {
   getFizzBuzz,
