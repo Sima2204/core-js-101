@@ -468,6 +468,40 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(/* position */) {
   throw new Error('Not implemented');
+  // let result;
+  // const combinations = [
+  //   [0, 1, 2],
+  //   [3, 4, 5],
+  //   [6, 7, 8],
+  //   [0, 3, 6],
+  //   [1, 4, 7],
+  //   [2, 5, 8],
+  //   [0, 4, 8],
+  //   [2, 4, 6],
+  // ];
+
+  // const normalPos = [];
+
+  // position.forEach((el) => {
+  //   let res = el.map((item) => {
+  //     if (typeof(item) === 'string') {
+  //       console.log('string')
+  //     } else {
+  //       console.log('empty')
+  //     }
+  //   })
+  // })
+
+  // console.log(normalPos);
+
+  // combinations.forEach((combination) => {
+  //   const collectedCombination = combination.map((item) => flattedPosition[item]);
+  //   if (collectedCombination.every((item) => item === collectedCombination[0] && item)) {
+  //     result = collectedCombination.pop();
+  //   }
+  // });
+
+  // return result;
 }
 
 module.exports = {

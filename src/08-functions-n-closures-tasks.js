@@ -169,10 +169,18 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  const startId = startFrom;
+  let nextId;
+  return function nextIdFunc() {
+    if (nextId === undefined) {
+      nextId = startId;
+      return nextId;
+    }
+    nextId += 1;
+    return nextId;
+  };
 }
-
 
 module.exports = {
   getComposition,
