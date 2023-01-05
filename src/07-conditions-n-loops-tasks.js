@@ -395,10 +395,22 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let i = 1;
+  let n = pathes[0].length - 1;
+  let result = pathes[0];
+  while (i < pathes.length) {
+    while (n > -1) {
+      if (pathes[i][n] !== pathes[0][n]) {
+        result = result.slice(0, n);
+      }
+      n -= 1;
+    }
+    n = pathes[0].length - 1;
+    i += 1;
+  }
+  return result.slice(0, result.lastIndexOf('/') + 1);
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -466,42 +478,32 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
-  // let result;
-  // const combinations = [
-  //   [0, 1, 2],
-  //   [3, 4, 5],
-  //   [6, 7, 8],
-  //   [0, 3, 6],
-  //   [1, 4, 7],
-  //   [2, 5, 8],
-  //   [0, 4, 8],
-  //   [2, 4, 6],
-  // ];
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < position.length; i += 1) {
+    if (
+      position[i][0] === position[i][1]
+      && position[i][1] === position[i][2]
+      && position[i][0] !== undefined
+    ) {
+      return position[i][0];
+    }
+    if (
+      position[0][i] === position[1][i]
+      && position[1][i] === position[2][i]
+      && position[0][i] !== undefined
+    ) {
+      return position[0][i];
+    }
+  }
 
-  // const normalPos = [];
+  if (position[0][0] === position[1][1] && position[1][1] === position[2][2]) {
+    return position[0][0];
+  }
+  if (position[0][2] === position[1][1] && position[1][1] === position[2][0]) {
+    return position[0][2];
+  }
 
-  // position.forEach((el) => {
-  //   let res = el.map((item) => {
-  //     if (typeof(item) === 'string') {
-  //       console.log('string')
-  //     } else {
-  //       console.log('empty')
-  //     }
-  //   })
-  // })
-
-  // console.log(normalPos);
-
-  // combinations.forEach((combination) => {
-  //   const collectedCombination = combination.map((item) => flattedPosition[item]);
-  //   if (collectedCombination.every((item) => item === collectedCombination[0] && item)) {
-  //     result = collectedCombination.pop();
-  //   }
-  // });
-
-  // return result;
+  return undefined;
 }
 
 module.exports = {
