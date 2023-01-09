@@ -144,10 +144,15 @@ function retry(func, attempts) {
  * cos(3.141592653589793) ends
  *
  */
-function logger(/* func, logFunc */) {
-  throw new Error('Not implemented');
+function logger(func, logFunc) {
+  return (...args) => {
+    const evaluate = (str) => logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) ${str}`);
+    evaluate('starts');
+    const result = func(...args);
+    evaluate('ends');
+    return result;
+  };
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -162,10 +167,9 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...args) => fn(...args1, ...args);
 }
-
 
 /**
  * Returns the id generator function that returns next integer starting
